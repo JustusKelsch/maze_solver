@@ -4,28 +4,20 @@ from maze import Maze
 
 def Main():
 
-    win = Window(800, 600)
-    maze = Maze(50, 50, 10, 10, 50, 50, win)
+    num_rows = 12
+    num_cols = 16
+    margin = 50
+    screen_x = 800
+    screen_y = 600
+    cell_size_x = (screen_x - 2 * margin) / num_cols
+    cell_size_y = (screen_y - 2 * margin) / num_rows
+    win = Window(screen_x, screen_y)
+
+    maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win)
     maze._break_entrance_and_exit()
-
-    ## Cell Tests
-
-    # cell = Cell(win)
-    # cell.draw(0, 0, 50, 50)
-
-    # cell_no_left = Cell(win)
-    # cell_no_left.has_left_wall = False
-    # cell_no_left.draw(225, 225, 275, 275)
-    # cell_no_right = Cell(win)
-    # cell_no_right.has_right_wall = False
-    # cell_no_right.draw(180, 230, 230, 280)
-    # cell_no_right.draw_move(cell_no_left)
-    # cell_no_top = Cell(win)
-    # cell_no_top.has_top_wall = False
-    # cell_no_top.draw(400, 400, 450, 450)
-    # cell_no_bottom = Cell(win)
-    # cell_no_bottom.has_bottom_wall = False
-    # cell_no_bottom.draw(500, 500, 550, 550)
+    maze._break_walls_r(0, 0)
+    maze._reset_cells_visited()
+    maze.solve()
 
     win.wait_for_close()
 
